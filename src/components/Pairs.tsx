@@ -4,7 +4,9 @@ import { Pair } from './Pair'
 import { Spinner } from './Spinner'
 
 export const Pairs: React.FC = () => {
-  const { loading, data } = useQuery<PairData>(GET_PAIRS)
+  const { loading, data } = useQuery<PairData>(GET_PAIRS, {
+    pollInterval: 1000 * 120,
+  })
 
   return (
     <>
