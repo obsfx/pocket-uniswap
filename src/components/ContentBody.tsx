@@ -1,6 +1,9 @@
+import { useQuery } from '@apollo/client'
+import { PoolDayDatas, GET_POOL_DAY_DATA } from '../queries'
 import styled from 'styled-components'
 import { Tabs, Tab, Content } from './Tabs'
-import { Pairs } from './Pairs'
+import { Pools } from './Pools'
+import { Mints } from './Mints'
 
 const ContentBodyWrapper = styled.div`
   padding: 1.4rem;
@@ -31,21 +34,27 @@ const ContentsWrapper = styled.div`
 `
 
 export const ContentBody: React.FC = () => {
+  useQuery(GET_POOL_DAY_DATA)
+
   return (
     <ContentBodyWrapper>
       <Tabs>
         <TabsWrapper>
-          <Tab id={0}>Pairs</Tab>
-          <Tab id={1}>Mint Txns</Tab>
-          <Tab id={2}>Burn Txns</Tab>
-          <Tab id={3}>Swap Txns</Tab>
+          <Tab id={0}>Tokens</Tab>
+          <Tab id={1}>Pools</Tab>
+          <Tab id={4}>Swap Txns</Tab>
         </TabsWrapper>
 
         <ContentsWrapper>
           <Content id={0}>
-            <Pairs />
+            /* * total supply, tradeVolume, tradeVolumeUSD, tx(transaction)Count*/
           </Content>
-          <Content id={1}>KEKW 2</Content>
+          <Content id={1}>
+            <Pools />
+          </Content>
+          <Content id={2}>
+            <Mints />
+          </Content>
         </ContentsWrapper>
       </Tabs>
     </ContentBodyWrapper>

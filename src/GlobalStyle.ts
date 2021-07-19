@@ -7,6 +7,12 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 16px;
   }
 
+  @media (max-width: 425px) {
+    html {
+      font-size: 12px;
+    }
+  }
+
   body {
     background-color: #f4f4f4;
     font-family: Inter, 'sans-serif'
