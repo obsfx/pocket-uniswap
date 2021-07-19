@@ -1,21 +1,20 @@
-import React from 'react'
+import styled from 'styled-components'
+import { Header } from './components/Header'
+import { ContentBody } from './components/ContentBody'
 
-function App() {
+const Container = styled.div`
+  max-width: 600px;
+  margin: auto;
+  padding: 1.2rem 0;
+`
+
+const App: React.FC = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Container>
+        <Header />
+        <ContentBody />
+      </Container>
     </div>
   )
 }
