@@ -16,7 +16,7 @@ export const Pools: React.FC = () => {
       ) : (
         data &&
         data.poolDayDatas
-          .slice(0, 10)
+          .slice(0, 100)
           .map(({ id, pool, tvlUSD, volumeUSD }) => (
             <Pool key={id} pool={pool} tvlUSD={tvlUSD} volumeUSD={volumeUSD} />
           ))

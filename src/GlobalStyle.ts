@@ -15,6 +15,13 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     background-color: #f4f4f4;
-    font-family: Inter, 'sans-serif'
+    font-family: Inter, 'sans-serif';
+    overflow: hidden;
+  }
+
+  #root {
+    position: absolute;
+    height: 100%;
+    width: 100%;
   }
 `

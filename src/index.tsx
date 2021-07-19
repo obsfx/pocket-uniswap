@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import { Scrollbars } from 'react-custom-scrollbars-2'
 import App from './App'
 import { GlobalStyle } from './GlobalStyle'
 
@@ -17,7 +18,9 @@ const client = new ApolloClient({
 ReactDOM.render(
   <ApolloProvider client={client}>
     <GlobalStyle />
-    <App />
+    <Scrollbars>
+      <App />
+    </Scrollbars>
   </ApolloProvider>,
   document.getElementById('root')
 )
