@@ -1,12 +1,24 @@
 import { useQuery } from '@apollo/client'
-import { PoolDayDatas, GET_POOL_DAY_DATA } from '../queries'
+import {
+  PoolIDData,
+  PoolData,
+  GET_POOLS_IDs_ORDERED_BY_TVL,
+  GET_POOL_DATA_ORDERED_BY_TVL,
+} from '../queries'
 import { Pool } from './Pool'
 import { Spinner } from './Spinner'
 
 export const Pools: React.FC = () => {
-  const { loading, data } = useQuery<PoolDayDatas>(GET_POOL_DAY_DATA, {
+  const { data: idData } = useQuery<PoolIDData>(GET_POOLS_IDs_ORDERED_BY_TVL, {
     pollInterval: 1000 * 120,
     nextFetchPolicy: 'cache-and-network',
+  })
+
+  const { loading, data } = useQuery<PoolData>(GET_POOL_DATA_ORDERED_BY_TVL, {
+    variables: { ids: idData && idData.pools.map((pool: { id: string }) => pool.id) },
+    pollInterval: 1000 * 120,
+    nextFetchPolicy: 'cache-and-network',
+    skip: !idData,
   })
 
   return (
@@ -15,10 +27,16 @@ export const Pools: React.FC = () => {
         <Spinner />
       ) : (
         data &&
-        data.poolDayDatas
+        data.pools
           .slice(0, 100)
-          .map(({ id, pool, tvlUSD, volumeUSD }) => (
-            <Pool key={id} pool={pool} tvlUSD={tvlUSD} volumeUSD={volumeUSD} />
+          .map(({ id, token0, token1, totalValueLockedUSD, volumeUSD }) => (
+            <Pool
+              key={id}
+              token0={token0}
+              token1={token1}
+              totalValueLockedUSD={totalValueLockedUSD}
+              volumeUSD={volumeUSD}
+            />
           ))
       )}
     </>

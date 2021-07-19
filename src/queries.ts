@@ -10,37 +10,41 @@ export interface Pool {
   id: string
   token0: Token
   token1: Token
-}
-
-export interface PoolDayData {
-  id: string
-  pool: Pool
-  tvlUSD: string
+  totalValueLockedUSD: string
   volumeUSD: string
 }
 
-export interface PoolDayDatas {
-  poolDayDatas: PoolDayData[]
+export interface PoolIDData {
+  pools: { id: string }[]
 }
 
-export const GET_POOL_DAY_DATA = gql`
-  query GetPoolDayDatas {
-    poolDayDatas(orderBy: tvlUSD, orderDirection: desc) {
+export interface PoolData {
+  pools: Pool[]
+}
+
+export const GET_POOLS_IDs_ORDERED_BY_TVL = gql`
+  query GetPoolIDsOrderedByTVL {
+    pools(first: 50, orderBy: totalValueLockedUSD, orderDirection: desc) {
       id
-      pool {
+    }
+  }
+`
+
+export const GET_POOL_DATA_ORDERED_BY_TVL = gql`
+  query GetPoolsOrderedByTVL($ids: [ID!]!) {
+    pools(where: { id_in: $ids }, orderBy: totalValueLockedUSD, orderDirection: desc) {
+      id
+      token0 {
         id
-        token0 {
-          id
-          name
-          symbol
-        }
-        token1 {
-          id
-          name
-          symbol
-        }
+        name
+        symbol
       }
-      tvlUSD
+      token1 {
+        id
+        name
+        symbol
+      }
+      totalValueLockedUSD
       volumeUSD
     }
   }

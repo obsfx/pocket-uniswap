@@ -2,7 +2,7 @@ import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 // @ts-expect-error
 import commaNumber from 'comma-number'
-import { Pool as PoolType } from '../queries'
+import { Token } from '../queries'
 
 const PoolWrapper = styled.div`
   border-radius: 6px;
@@ -42,6 +42,10 @@ const PoolWrapper = styled.div`
 
       .token-name {
         cursor: pointer;
+
+        &:hover {
+          background-color: yellow;
+        }
       }
 
       .token-seperator {
@@ -90,10 +94,11 @@ const PoolWrapper = styled.div`
 `
 
 export const Pool: React.FC<{
-  pool: PoolType
-  tvlUSD: string
+  token0: Token
+  token1: Token
+  totalValueLockedUSD: string
   volumeUSD: string
-}> = ({ pool, tvlUSD, volumeUSD }) => {
+}> = ({ token0, token1, totalValueLockedUSD, volumeUSD }) => {
   const formatValue = (value: string): string => {
     return commaNumber(value, ',')
       .split('.')
@@ -105,18 +110,18 @@ export const Pool: React.FC<{
     <PoolWrapper>
       <div className="token-info-wrapper">
         <div className="token-symbol">
-          <span data-tip data-for={pool.token0.id} className="token-name">
-            <ReactTooltip place="top" id={pool.token0.id}>
-              {pool.token0.name}
+          <span data-tip data-for={token0.id} className="token-name">
+            <ReactTooltip effect="solid" place="top" id={token0.id}>
+              {token0.name}
             </ReactTooltip>
-            {pool.token0.symbol}
+            {token0.symbol}
           </span>{' '}
           <span className="token-seperator">•</span>{' '}
-          <span data-tip data-for={pool.token1.id} className="token-name">
-            <ReactTooltip place="top" id={pool.token1.id}>
-              {pool.token1.name}
+          <span data-tip data-for={token1.id} className="token-name">
+            <ReactTooltip effect="solid" place="top" id={token1.id}>
+              {token1.name}
             </ReactTooltip>
-            {pool.token1.symbol}
+            {token1.symbol}
           </span>
         </div>
       </div>
@@ -125,7 +130,7 @@ export const Pool: React.FC<{
         <div className="info-title">TVL</div>
         <div className="info-value">
           {'$'}
-          {formatValue(tvlUSD)}
+          {formatValue(totalValueLockedUSD)}
         </div>
       </div>
 
