@@ -3,7 +3,7 @@ import { Header } from './components/Header'
 import { ContentBody } from './components/ContentBody'
 
 const Container = styled.div`
-  max-width: 600px;
+  max-width: 560px;
   margin: auto;
   padding: 1.2rem 0;
 `

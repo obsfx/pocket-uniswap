@@ -8,6 +8,7 @@ const PoolWrapper = styled.div`
   border-radius: 6px;
   display: flex;
   background-color: #ececec;
+  overflow: hidden;
 
   @media (max-width: 425px) {
     align-items: center;
@@ -29,8 +30,6 @@ const PoolWrapper = styled.div`
     }
 
     .token-symbol {
-      border-top-left-radius: 6px;
-      border-bottom-left-radius: 6px;
       font-size: 1.1rem;
       font-weight: 400;
       color: #0a0a0a;
@@ -80,22 +79,27 @@ const PoolWrapper = styled.div`
     }
   }
 
-  .info-wrapper {
-    width: 33%;
-    padding: 10px;
-    font-weight: 500;
+  .info-section {
+    width: 66%;
+    display: flex;
 
-    .info-title {
-      font-size: 0.7rem;
-      color: #787878;
-      width: 100%;
-      display: inline;
-      text-transform: uppercase;
-    }
+    .info-wrapper {
+      width: 50%;
+      padding: 10px;
+      font-weight: 500;
 
-    .info-value {
-      margin-top: 2px;
-      font-size: 0.82rem;
+      .info-title {
+        font-size: 0.7rem;
+        color: #787878;
+        width: 100%;
+        display: inline;
+        text-transform: uppercase;
+      }
+
+      .info-value {
+        margin-top: 2px;
+        font-size: 0.82rem;
+      }
     }
   }
 `
@@ -126,19 +130,21 @@ export const Pool: React.FC<{
         </div>
       </div>
 
-      <div className="info-wrapper">
-        <div className="info-title">TVL</div>
-        <div className="info-value">
-          {'$'}
-          {abbreviate(totalValueLockedUSD, 4)}
+      <div className="info-section">
+        <div className="info-wrapper">
+          <div className="info-title">TVL</div>
+          <div className="info-value">
+            {'$'}
+            {abbreviate(totalValueLockedUSD, 4)}
+          </div>
         </div>
-      </div>
 
-      <div className="info-wrapper">
-        <div className="info-title">Volume</div>
-        <div className="info-value">
-          {'$'}
-          {abbreviate(volumeUSD, 4)}
+        <div className="info-wrapper">
+          <div className="info-title">Volume</div>
+          <div className="info-value">
+            {'$'}
+            {abbreviate(volumeUSD, 4)}
+          </div>
         </div>
       </div>
     </PoolWrapper>
