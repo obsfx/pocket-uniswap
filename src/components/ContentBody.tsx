@@ -1,6 +1,10 @@
+import { useQuery } from '@apollo/client'
 import styled from 'styled-components'
+import { FiCircle, FiSquare, FiTriangle } from 'react-icons/fi'
+import { GET_POOL_DATA, GET_SWAPS } from '../queries'
 import { Tabs, Tab, Content } from './Tabs'
-import { Pairs } from './Pairs'
+import { Pools } from './Pools'
+import { Swaps } from './Swaps'
 
 const ContentBodyWrapper = styled.div`
   padding: 1.4rem;
@@ -18,6 +22,12 @@ const TabsWrapper = styled.div`
     color: #a2a2a2;
     font-size: 1rem;
     transition: all 0.1s ease-in-out;
+    display: flex;
+    align-items: center;
+
+    svg {
+      padding-right: 4px;
+    }
 
     &:hover,
     &.active {
@@ -31,21 +41,39 @@ const ContentsWrapper = styled.div`
 `
 
 export const ContentBody: React.FC = () => {
+  useQuery(GET_POOL_DATA, {
+    variables: { orderBy: 'totalValueLockedUSD' },
+  })
+
+  useQuery(GET_SWAPS, {
+    nextFetchPolicy: 'cache-and-network',
+  })
+
+  /* * total supply, tradeVolume, tradeVolumeUSD, tx(transaction)Count*/
+
   return (
     <ContentBodyWrapper>
       <Tabs>
         <TabsWrapper>
-          <Tab id={0}>Pairs</Tab>
-          <Tab id={1}>Mint Txns</Tab>
-          <Tab id={2}>Burn Txns</Tab>
-          <Tab id={3}>Swap Txns</Tab>
+          <Tab id={0}>
+            <FiCircle /> Tokens
+          </Tab>
+          <Tab id={1}>
+            <FiSquare /> Pools
+          </Tab>
+          <Tab id={2}>
+            <FiTriangle /> Swap Txns
+          </Tab>
         </TabsWrapper>
 
         <ContentsWrapper>
-          <Content id={0}>
-            <Pairs />
+          <Content id={0}>test</Content>
+          <Content id={1}>
+            <Pools />
           </Content>
-          <Content id={1}>KEKW 2</Content>
+          <Content id={2}>
+            <Swaps />
+          </Content>
         </ContentsWrapper>
       </Tabs>
     </ContentBodyWrapper>

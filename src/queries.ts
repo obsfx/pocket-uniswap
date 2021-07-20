@@ -6,26 +6,21 @@ export interface Token {
   symbol: string
 }
 
-export interface Pair {
+export interface Pool {
   id: string
   token0: Token
   token1: Token
-  reserveUSD: string
+  totalValueLockedUSD: string
   volumeUSD: string
-  token0Price: string
-  token1Price: string
-  volumeToken0: string
-  volumeToken1: string
-  totalSupply: string
 }
 
-export interface PairData {
-  pairs: Pair[]
+export interface PoolData {
+  pools: Pool[]
 }
 
-export const GET_PAIRS = gql`
-  query GetPairs($first: Int) {
-    pairs(first: $first, orderBy: reserveUSD, orderDirection: desc) {
+export const GET_POOL_DATA = gql`
+  query GetPoolsOrderedByTVL($orderBy: String) {
+    pools(orderBy: $orderBy, orderDirection: desc) {
       id
       token0 {
         id
@@ -37,164 +32,53 @@ export const GET_PAIRS = gql`
         name
         symbol
       }
-      reserveUSD
+      totalValueLockedUSD
       volumeUSD
-      token0Price
-      token1Price
-      volumeToken0
-      volumeToken1
-      totalSupply
     }
   }
 `
 
-interface Transaction {
+export interface Transaction {
   id: string
   blockNumber: string
-  timestamp: string
+  gasPrice: string
+  gasUsed: string
 }
 
-interface Action {
+export interface Swap {
   id: string
-  transaction: Transaction
   timestamp: string
-  pair: Pair
-  to: string
   sender: string
+  token0: Token
+  token1: Token
+  amount0: string
+  amount1: string
+  origin: string
 }
-
-export interface Mint extends Action {
-  amount0: number
-  amount1: number
-}
-
-export interface MintData {
-  mints: Mint[]
-}
-
-export const GET_MINTS = gql`
-  query GetMints($first: Int) {
-    mints(first: $first, orderBy: timestamp, orderDirection: desc) {
-      id
-      transaction {
-        id
-        blockNumber
-        timestamp
-      }
-      timestamp
-      pair {
-        id
-        token0 {
-          id
-          name
-          symbol
-        }
-        token1 {
-          id
-          name
-          symbol
-        }
-        reserveUSD
-        volumeUSD
-        token0Price
-        token1Price
-      }
-      to
-      sender
-      amount0
-      amount1
-    }
-  }
-`
-
-export interface Burn extends Action {
-  amount0: number
-  amount1: number
-}
-
-export interface BurnData {
-  burns: Burn[]
-}
-
-export const GET_BURNS = gql`
-  query GetBurns($first: Int) {
-    burns(first: $first, orderBy: timestamp, orderDirection: desc) {
-      id
-      transaction {
-        id
-        blockNumber
-        timestamp
-      }
-      timestamp
-      pair {
-        id
-        token0 {
-          id
-          name
-          symbol
-        }
-        token1 {
-          id
-          name
-          symbol
-        }
-        reserveUSD
-        volumeUSD
-        token0Price
-        token1Price
-      }
-      to
-      sender
-      amount0
-      amount1
-    }
-  }
-`
-
-export interface Swap extends Action {
-  amount0In: number
-  amount0Out: number
-  amount1In: number
-  amount1Out: number
-}
-
-export const GET_SWAPS = gql`
-  query GetSwaps($first: Int) {
-    swaps(first: $first, orderBy: timestamp, orderDirection: desc) {
-      id
-      transaction {
-        id
-        blockNumber
-        timestamp
-      }
-      timestamp
-      pair {
-        id
-        token0 {
-          id
-          name
-          symbol
-        }
-        token1 {
-          id
-          name
-          symbol
-        }
-        reserveUSD
-        volumeUSD
-        token0Price
-        token1Price
-      }
-      to
-      sender
-      amount0In
-      amount0Out
-      amount1In
-      amount1Out
-    }
-  }
-`
 
 export interface SwapData {
   swaps: Swap[]
 }
+
+export const GET_SWAPS = gql`
+  query GetSwaps {
+    swaps(orderBy: timestamp, orderDirection: desc) {
+      id
+      timestamp
+      sender
+      token0 {
+        id
+        name
+        symbol
+      }
+      token1 {
+        id
+        name
+        symbol
+      }
+      amount0
+      amount1
+      origin
+    }
+  }
+`
