@@ -1,10 +1,10 @@
 import { useQuery } from '@apollo/client'
-import { GET_POOL_DATA } from '../queries'
 import styled from 'styled-components'
 import { FiCircle, FiSquare, FiTriangle } from 'react-icons/fi'
-import {} from '../queries'
+import { GET_POOL_DATA, GET_SWAPS } from '../queries'
 import { Tabs, Tab, Content } from './Tabs'
 import { Pools } from './Pools'
+import { Swaps } from './Swaps'
 
 const ContentBodyWrapper = styled.div`
   padding: 1.4rem;
@@ -41,7 +41,14 @@ const ContentsWrapper = styled.div`
 `
 
 export const ContentBody: React.FC = () => {
-  useQuery(GET_POOL_DATA, { variables: { orderBy: 'totalValueLockedUSD' } })
+  useQuery(GET_POOL_DATA, {
+    variables: { orderBy: 'totalValueLockedUSD' },
+  })
+
+  useQuery(GET_SWAPS, {
+    nextFetchPolicy: 'cache-and-network',
+  })
+
   /* * total supply, tradeVolume, tradeVolumeUSD, tx(transaction)Count*/
 
   return (
@@ -64,7 +71,9 @@ export const ContentBody: React.FC = () => {
           <Content id={1}>
             <Pools />
           </Content>
-          <Content id={2}>test</Content>
+          <Content id={2}>
+            <Swaps />
+          </Content>
         </ContentsWrapper>
       </Tabs>
     </ContentBodyWrapper>
