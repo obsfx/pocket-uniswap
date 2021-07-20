@@ -3,6 +3,10 @@ import 'typeface-inter'
 import 'normalize.css'
 
 export const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
+
   html {
     font-size: 16px;
   }

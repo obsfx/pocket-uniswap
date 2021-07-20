@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client'
-import { GET_POOLS_IDs_ORDERED_BY_TVL, GET_POOL_DATA_ORDERED_BY_TVL } from '../queries'
+import { GET_POOL_DATA } from '../queries'
 import styled from 'styled-components'
 import { FiCircle, FiSquare, FiTriangle } from 'react-icons/fi'
 import {} from '../queries'
@@ -41,17 +41,7 @@ const ContentsWrapper = styled.div`
 `
 
 export const ContentBody: React.FC = () => {
-  const { data: idData } = useQuery(GET_POOLS_IDs_ORDERED_BY_TVL, {
-    pollInterval: 1000 * 120,
-    nextFetchPolicy: 'cache-and-network',
-  })
-
-  useQuery(GET_POOL_DATA_ORDERED_BY_TVL, {
-    variables: { ids: idData && idData.pools.map((pool: { id: string }) => pool.id) },
-    pollInterval: 1000 * 120,
-    nextFetchPolicy: 'cache-and-network',
-    skip: !idData,
-  })
+  useQuery(GET_POOL_DATA, { variables: { orderBy: 'totalValueLockedUSD' } })
   /* * total supply, tradeVolume, tradeVolumeUSD, tx(transaction)Count*/
 
   return (

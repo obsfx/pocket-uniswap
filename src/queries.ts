@@ -14,25 +14,13 @@ export interface Pool {
   volumeUSD: string
 }
 
-export interface PoolIDData {
-  pools: { id: string }[]
-}
-
 export interface PoolData {
   pools: Pool[]
 }
 
-export const GET_POOLS_IDs_ORDERED_BY_TVL = gql`
-  query GetPoolIDsOrderedByTVL {
-    pools(first: 50, orderBy: totalValueLockedUSD, orderDirection: desc) {
-      id
-    }
-  }
-`
-
-export const GET_POOL_DATA_ORDERED_BY_TVL = gql`
-  query GetPoolsOrderedByTVL($ids: [ID!]!) {
-    pools(where: { id_in: $ids }, orderBy: totalValueLockedUSD, orderDirection: desc) {
+export const GET_POOL_DATA = gql`
+  query GetPoolsOrderedByTVL($orderBy: String) {
+    pools(orderBy: $orderBy, orderDirection: desc) {
       id
       token0 {
         id

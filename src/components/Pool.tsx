@@ -1,12 +1,11 @@
 import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 // @ts-expect-error
-import commaNumber from 'comma-number'
+import abbreviate from 'number-abbreviate'
 import { Token } from '../queries'
 
 const PoolWrapper = styled.div`
   border-radius: 6px;
-  padding: 10px;
   display: flex;
   background-color: #ececec;
 
@@ -21,7 +20,6 @@ const PoolWrapper = styled.div`
   .token-info-wrapper {
     width: 33%;
     display: flex;
-    align-items: center;
     justify-content: center;
 
     @media (max-width: 425px) {
@@ -31,20 +29,25 @@ const PoolWrapper = styled.div`
     }
 
     .token-symbol {
-      border-radius: 6px;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
       font-size: 1.1rem;
       font-weight: 400;
       color: #0a0a0a;
       display: flex;
       background-color: #e3e3e3;
       padding: 8px 12px;
+      text-align: center;
+      justify-content: center;
       align-items: center;
+      width: 100%;
 
       .token-name {
         cursor: pointer;
 
-        &:hover {
-          background-color: yellow;
+        @media (max-width: 425px) {
+          width: 100%;
+          text-align: center;
         }
       }
 
@@ -52,6 +55,10 @@ const PoolWrapper = styled.div`
         color: #c2c2c2;
         font-size: 0.7rem;
         padding: 0px 4px;
+
+        @media (max-width: 425px) {
+          display: none;
+        }
       }
 
       &:not(:last-child) {
@@ -75,7 +82,7 @@ const PoolWrapper = styled.div`
 
   .info-wrapper {
     width: 33%;
-    padding: 0px 6px;
+    padding: 10px;
     font-weight: 500;
 
     .info-title {
@@ -99,13 +106,6 @@ export const Pool: React.FC<{
   totalValueLockedUSD: string
   volumeUSD: string
 }> = ({ token0, token1, totalValueLockedUSD, volumeUSD }) => {
-  const formatValue = (value: string): string => {
-    return commaNumber(value, ',')
-      .split('.')
-      .map((piece: string, idx: number) => (idx === 1 ? piece.slice(0, 2) : piece))
-      .join('.')
-  }
-
   return (
     <PoolWrapper>
       <div className="token-info-wrapper">
@@ -130,7 +130,7 @@ export const Pool: React.FC<{
         <div className="info-title">TVL</div>
         <div className="info-value">
           {'$'}
-          {formatValue(totalValueLockedUSD)}
+          {abbreviate(totalValueLockedUSD, 4)}
         </div>
       </div>
 
@@ -138,7 +138,7 @@ export const Pool: React.FC<{
         <div className="info-title">Volume</div>
         <div className="info-value">
           {'$'}
-          {formatValue(volumeUSD)}
+          {abbreviate(volumeUSD, 4)}
         </div>
       </div>
     </PoolWrapper>
