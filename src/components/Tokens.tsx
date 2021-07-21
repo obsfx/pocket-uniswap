@@ -11,7 +11,6 @@ export const Tokens: React.FC = () => {
 
   const { loading, data } = useQuery<TokenData>(GET_TOKENS, {
     pollInterval: 1000 * 2,
-    variables: { orderBy: 'totalValueLockedUSD' },
     nextFetchPolicy: 'cache-and-network',
   })
 
@@ -33,18 +32,28 @@ export const Tokens: React.FC = () => {
             />
             {data.tokens
               .slice(current * PAGE_SIZE, (current + 1) * PAGE_SIZE)
-              .map(({ id, name, symbol, totalValueLockedUSD, totalSupply, volumeUSD, txCount }) => (
-                <Token
-                  key={id}
-                  id={id}
-                  name={name}
-                  symbol={symbol}
-                  totalValueLockedUSD={totalValueLockedUSD || ''}
-                  totalSupply={totalSupply || ''}
-                  volumeUSD={volumeUSD || ''}
-                  txCount={txCount || ''}
-                />
-              ))}
+              .map(
+                ({
+                  id,
+                  name,
+                  symbol,
+                  totalValueLockedUSD,
+                  totalSupply,
+                  volumeUSD,
+                  tokenDayData,
+                }) => (
+                  <Token
+                    key={id}
+                    id={id}
+                    name={name}
+                    symbol={symbol}
+                    totalValueLockedUSD={totalValueLockedUSD || ''}
+                    totalSupply={totalSupply || ''}
+                    volumeUSD={volumeUSD || ''}
+                    priceUSD={(tokenDayData && tokenDayData[0].priceUSD) || ''}
+                  />
+                )
+              )}
           </>
         )
       )}

@@ -90,8 +90,8 @@ export const Token: React.FC<{
   totalValueLockedUSD: string
   totalSupply: string
   volumeUSD: string
-  txCount: string
-}> = ({ id, name, symbol, totalValueLockedUSD, totalSupply, volumeUSD, txCount }) => {
+  priceUSD: string
+}> = ({ id, name, symbol, totalValueLockedUSD, totalSupply, volumeUSD, priceUSD }) => {
   return (
     <TokenWrapper>
       <div className="symbol-wrapper">
@@ -131,10 +131,10 @@ export const Token: React.FC<{
         </div>
 
         <div className="info-wrapper">
-          <div className="info-title">Transaction Count</div>
+          <div className="info-title">Price</div>
           <div className="info-value">
             {'$'}
-            {abbreviate(txCount, 4)}
+            {abbreviate(parseFloat(priceUSD).toFixed(4), 4)}
           </div>
         </div>
       </div>

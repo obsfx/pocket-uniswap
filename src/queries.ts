@@ -7,7 +7,7 @@ export interface Token {
   totalValueLockedUSD?: string
   totalSupply?: string
   volumeUSD?: string
-  txCount?: string
+  tokenDayData?: { priceUSD: string }[]
 }
 
 export interface TokenData {
@@ -23,7 +23,9 @@ export const GET_TOKENS = gql`
       totalValueLockedUSD
       totalSupply
       volumeUSD
-      txCount
+      tokenDayData(first: 1, orderBy: date, orderDirection: desc) {
+        priceUSD
+      }
     }
   }
 `
