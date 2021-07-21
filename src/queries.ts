@@ -4,7 +4,29 @@ export interface Token {
   id: string
   name: string
   symbol: string
+  totalValueLockedUSD?: string
+  totalSupply?: string
+  volumeUSD?: string
+  txCount?: string
 }
+
+export interface TokenData {
+  tokens: Token[]
+}
+
+export const GET_TOKENS = gql`
+  query GetTokens {
+    tokens(orderBy: volumeUSD, orderDirection: desc) {
+      id
+      name
+      symbol
+      totalValueLockedUSD
+      totalSupply
+      volumeUSD
+      txCount
+    }
+  }
+`
 
 export interface Pool {
   id: string
@@ -19,7 +41,7 @@ export interface PoolData {
 }
 
 export const GET_POOL_DATA = gql`
-  query GetPoolsOrderedByTVL($orderBy: String) {
+  query GetPoolData($orderBy: String) {
     pools(orderBy: $orderBy, orderDirection: desc) {
       id
       token0 {

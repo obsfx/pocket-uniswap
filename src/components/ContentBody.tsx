@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { FiCircle, FiSquare, FiTriangle } from 'react-icons/fi'
 import { GET_POOL_DATA, GET_SWAPS } from '../queries'
 import { Tabs, Tab, Content } from './Tabs'
+import { Tokens } from './Tokens'
 import { Pools } from './Pools'
 import { Swaps } from './Swaps'
 
@@ -67,7 +68,9 @@ export const ContentBody: React.FC = () => {
         </TabsWrapper>
 
         <ContentsWrapper>
-          <Content id={0}>test</Content>
+          <Content id={0}>
+            <Tokens />
+          </Content>
           <Content id={1}>
             <Pools />
           </Content>
