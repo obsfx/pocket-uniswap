@@ -1,11 +1,9 @@
 import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
-import { BsDot } from 'react-icons/bs'
 // @ts-expect-error
 import abbreviate from 'number-abbreviate'
-import { Token } from '../queries'
 
-const PoolWrapper = styled.div`
+const TokenWrapper = styled.div`
   border-radius: 6px;
   display: flex;
   background-color: #ececec;
@@ -15,13 +13,13 @@ const PoolWrapper = styled.div`
     margin-bottom: 0.6rem;
   }
 
-  .pair-symbol-wrapper {
-    width: 36%;
+  .symbol-wrapper {
+    width: 25%;
     display: flex;
     justify-content: center;
     background-color: #e3e3e3;
 
-    .pair-symbols {
+    .symbol {
       font-size: 1.1rem;
       font-weight: 400;
       color: #0a0a0a;
@@ -35,26 +33,18 @@ const PoolWrapper = styled.div`
       .token-name {
         cursor: pointer;
       }
-
-      .pair-seperator {
-        color: #c2c2c2;
-        font-size: 1.2rem;
-        display: flex;
-      }
-
-      &:not(:last-child) {
-        margin-right: 0.4rem;
-      }
     }
   }
 
   .info-section {
-    width: 64%;
+    width: 75%;
     display: flex;
+    flex-wrap: wrap;
+    padding: 0.7rem;
 
     .info-wrapper {
       width: 50%;
-      padding: 0.7rem;
+      padding: 2px;
       font-weight: 500;
 
       .info-title {
@@ -73,15 +63,11 @@ const PoolWrapper = styled.div`
   }
 
   @media (max-width: 425px) {
-    align-items: center;
-
-    .pair-symbol-wrapper {
-      flex-direction: column;
-      align-items: start;
+    .symbol-wrapper {
       justify-content: center;
     }
 
-    .pair-symbols {
+    .symbol {
       flex-wrap: wrap;
 
       &:not(:last-child) {
@@ -93,40 +79,28 @@ const PoolWrapper = styled.div`
         width: 100%;
         text-align: center;
       }
-
-      .pair-seperator {
-        svg {
-          display: none;
-        }
-      }
     }
   }
 `
 
-export const Pool: React.FC<{
-  token0: Token
-  token1: Token
+export const Token: React.FC<{
+  id: string
+  name: string
+  symbol: string
   totalValueLockedUSD: string
+  totalSupply: string
   volumeUSD: string
-}> = ({ token0, token1, totalValueLockedUSD, volumeUSD }) => {
+  priceUSD: string
+}> = ({ id, name, symbol, totalValueLockedUSD, totalSupply, volumeUSD, priceUSD }) => {
   return (
-    <PoolWrapper>
-      <div className="pair-symbol-wrapper">
-        <div className="pair-symbols">
-          <span data-tip data-for={token0.id} className="token-name">
-            <ReactTooltip effect="solid" place="top" id={token0.id}>
-              {token0.name}
+    <TokenWrapper>
+      <div className="symbol-wrapper">
+        <div className="symbol">
+          <span data-tip data-for={id} className="token-name">
+            <ReactTooltip effect="solid" place="top" id={id}>
+              {name}
             </ReactTooltip>
-            {token0.symbol}
-          </span>{' '}
-          <span className="pair-seperator">
-            <BsDot />
-          </span>{' '}
-          <span data-tip data-for={token1.id} className="token-name">
-            <ReactTooltip effect="solid" place="top" id={token1.id}>
-              {token1.name}
-            </ReactTooltip>
-            {token1.symbol}
+            {symbol}
           </span>
         </div>
       </div>
@@ -147,7 +121,23 @@ export const Pool: React.FC<{
             {abbreviate(parseFloat(volumeUSD).toFixed(4), 4)}
           </div>
         </div>
+
+        <div className="info-wrapper">
+          <div className="info-title">Total Supply</div>
+          <div className="info-value">
+            {'$'}
+            {abbreviate(parseFloat(totalSupply).toFixed(4), 4)}
+          </div>
+        </div>
+
+        <div className="info-wrapper">
+          <div className="info-title">Price</div>
+          <div className="info-value">
+            {'$'}
+            {abbreviate(parseFloat(priceUSD).toFixed(4), 4)}
+          </div>
+        </div>
       </div>
-    </PoolWrapper>
+    </TokenWrapper>
   )
 }
