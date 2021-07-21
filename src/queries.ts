@@ -16,7 +16,7 @@ export interface TokenData {
 
 export const GET_TOKENS = gql`
   query GetTokens {
-    tokens(orderBy: volumeUSD, orderDirection: desc) {
+    tokens(orderBy: totalValueLockedUSD, orderDirection: desc) {
       id
       name
       symbol

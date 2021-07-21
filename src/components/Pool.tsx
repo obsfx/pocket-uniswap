@@ -136,7 +136,7 @@ export const Pool: React.FC<{
           <div className="info-title">TVL</div>
           <div className="info-value">
             {'$'}
-            {abbreviate(totalValueLockedUSD, 4)}
+            {abbreviate(parseFloat(totalValueLockedUSD).toFixed(4), 4)}
           </div>
         </div>
 
@@ -144,7 +144,7 @@ export const Pool: React.FC<{
           <div className="info-title">Volume</div>
           <div className="info-value">
             {'$'}
-            {abbreviate(volumeUSD, 4)}
+            {abbreviate(parseFloat(volumeUSD).toFixed(4), 4)}
           </div>
         </div>
       </div>

@@ -110,7 +110,7 @@ export const Token: React.FC<{
           <div className="info-title">TVL</div>
           <div className="info-value">
             {'$'}
-            {abbreviate(totalValueLockedUSD, 4)}
+            {abbreviate(parseFloat(totalValueLockedUSD).toFixed(4), 4)}
           </div>
         </div>
 
@@ -118,7 +118,7 @@ export const Token: React.FC<{
           <div className="info-title">Volume</div>
           <div className="info-value">
             {'$'}
-            {abbreviate(volumeUSD, 4)}
+            {abbreviate(parseFloat(volumeUSD).toFixed(4), 4)}
           </div>
         </div>
 
@@ -126,7 +126,7 @@ export const Token: React.FC<{
           <div className="info-title">Total Supply</div>
           <div className="info-value">
             {'$'}
-            {abbreviate(totalSupply, 4)}
+            {abbreviate(parseFloat(totalSupply).toFixed(4), 4)}
           </div>
         </div>
 
