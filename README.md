@@ -8,7 +8,7 @@
 
 
 
-**Pocket Uniswap** is a web application that shows latest Uniswap analytics using Uniswap GraphQL V3 API. It is built using **React**, **TypeScript**, **styled-components** and **Apollo Client**. 
+**Pocket Uniswap** is a web application that shows latest Uniswap analytics using Uniswap GraphQL V3 API. It is built using **React**, **TypeScript**, **styled-components** and **Apollo**. 
 
 <hr>
 
