@@ -1,4 +1,16 @@
-# Getting Started with Create React App
+# Pocket Uniswap
+
+
+
+![](https://raw.githubusercontent.com/obsfx/pocket-uniswap/main/preview.png)
+
+[pocket-uniswap.vercel.app](http://pocket-uniswap.vercel.app/)
+
+
+
+**Pocket Uniswap** is a web application that shows latest Uniswap analytics using Uniswap GraphQL V3 API. It is built using **React**, **TypeScript**, **styled-components** and **Apollo Client**. 
+
+<hr>
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
